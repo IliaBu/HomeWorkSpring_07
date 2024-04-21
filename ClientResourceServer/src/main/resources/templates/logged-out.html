@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="1;url=http://127.0.0.1:8080">
+    <title>Клиент-сервер Spring</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:replace="~{page-templates :: navbar}"></div>
+<canvas id="main"></canvas>
+<div class="container main-form">
+    <div class="row py-5 justify-content-center">
+        <div class="col">
+            <h2>Вы вышли из системы.</h2>
+        </div>
+    </div>
+</div>
+<script src="/js/main.js"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.js}"></script>
+</body>
+</html>

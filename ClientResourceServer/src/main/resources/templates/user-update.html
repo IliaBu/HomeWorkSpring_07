@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="/css/style.css">
+<title>Обновить пользователя</title>
+</head>
+<body>
+<div th:replace="~{page-templates :: navbar}"></div>
+<canvas id="main"></canvas>
+<div class="form-block">
+<form  action="#" th:action="@{/user-update/*{id}}" th:object="${user}" method="post">
+    <label class="form-label" for="id">ID</label>
+    <input class="form-control" readonly type="number" style="background-color: #b7b7b7;" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label class="form-label" for="firstName">Имя</label>
+    <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="Введите имя пользователя">
+    <br/>
+    <label class="form-label" for="lastName">Фамилия</label>
+    <input class="form-control" type="text" th:field="*{lastName}" id="lastName" placeholder="Введите фамилию пользователя">
+    <br/>
+    <input class="btn btn-primary" type="submit" value="Записать изменения">
+    <input class="btn btn-danger" type="button" onclick="history.back();" value="Отмена"/>
+</form>
+</div>
+<script src="/js/main.js"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

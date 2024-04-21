@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Клиент-сервер Spring</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/img/spring-security.svg" th:src="@{/img/spring-security.svg}" width="40" height="32">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/" th:href="@{/}">Главная</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">Авторизовать</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/authorize?grant_type=device_code"
+                               th:href="@{/authorize?grant_type=device_code}">Код устройства</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-dark" type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<canvas id="main" style="overflow: hidden; width:100vw; height:100vh;"></canvas>
+<div class="container">
+    <div th:fragment="error-message" th:if="${error}" class="row py-5 justify-content-center">
+        <div class="col alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${error}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div th:fragment="users" class="row py-5 justify-content-center">
+
+        <div class="main-form" th:switch="${users}">
+            <h2 th:case="null">Пользователи не найдены!</h2>
+            <div th:case="*">
+                <h2>Список пользователей</h2>
+                <table class="table table-bordered" align="center">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td><a class="btn btn-success" th:href="@{user-update/{id}(id=${user.id})}"
+                               title="Изменить пользователя">Изменить</a>&nbsp;
+                            <a class="btn btn-danger" th:href="@{user-delete/{id}(id=${user.id})}"
+                               title="Удалить пользователя">Удалить</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a class="btn btn-primary" href="/user-create">Добавить пользователя</a>
+            </p>
+        </div>
+    </div>
+</div>
+<script src="/js/main.js"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.js}"></script>
+</body>
+</html>
